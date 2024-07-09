@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 import { useQuery, gql } from '@apollo/client';
-import Card from './components/Card';
+import Card, { PublicImageAssetPorps } from './components/Card';
 
 const MY_QUERY = gql`
 query {
@@ -128,11 +125,10 @@ function App() {
   const { loading, error, data } = useQuery(MY_QUERY);
   if (loading) return <p>Loading... </p>;
   if (error) return <p>Error: {error.message} </p>;
-  console.log(data.PublicImageAsset.items.map((item) => item.Title));
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.PublicImageAsset.items.map((item: any) => (
+        {data.PublicImageAsset.items.map((item: PublicImageAssetPorps) => (
           <Card
             key={item.Id}
             Id={item.Id}

@@ -4,7 +4,7 @@ interface Field {
   Id: string;
   Name: string;
   Type: string;
-  Values: any[];
+  Values: string[];
 }
 
 interface Rendition {
@@ -14,7 +14,7 @@ interface Rendition {
   Width: number;
 }
 
-interface ItemProps {
+export interface PublicImageAssetPorps {
   Id: string;
   Title: string;
   AltText: string;
@@ -32,7 +32,7 @@ interface ItemProps {
   Renditions: Rendition[];
 }
 
-const Card: React.FC<ItemProps> = ({
+const Card: React.FC<PublicImageAssetPorps> = ({
   Title,
   Url,
   AltText,
