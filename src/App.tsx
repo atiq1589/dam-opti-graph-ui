@@ -4,7 +4,7 @@ import Card, { PublicImageAssetProps } from './components/Card';
 
 const MY_QUERY = gql`
 query {
-  PublicImageAsset(limit: 18) {
+  PublicImageAsset(orderBy: { DateModified: DESC }, limit: 18) {
     items {
       Id
       Title
