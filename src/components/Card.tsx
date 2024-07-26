@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import Modal from './Modal';
+import React, { useState } from "react";
+import Modal from "./Modal";
+import ResponsiveImage from "./ResponsiveImage";
 
 interface Field {
   Id: string;
@@ -47,20 +48,28 @@ const Card: React.FC<PublicImageAssetPorps> = ({
 
   const openModal = () => {
     setIsModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <div className="relative h-64 w-full overflow-hidden" onClick={openModal}>
-        <img
-          className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 hover:scale-125"
-          src={Url}
-          alt={AltText || Title}
-        />
+        {Renditions && Renditions.length > 0 ? (
+          <ResponsiveImage
+            images={Renditions}
+            alt={AltText || Title}
+            className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+          />
+        ) : (
+          <img
+            src={Url}
+            alt={AltText || Title}
+            className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+          />
+        )}
       </div>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2 overflow-hidden overflow-ellipsis whitespace-normal break-words max-h-16">
@@ -78,7 +87,7 @@ const Card: React.FC<PublicImageAssetPorps> = ({
         <h3 className="font-bold text-lg">Fields</h3>
         {Fields.map((field) => (
           <div key={field.Id} className="text-gray-700 text-base">
-            <strong>{field.Name}:</strong> {field.Values.join(', ')}
+            <strong>{field.Name}:</strong> {field.Values.join(", ")}
           </div>
         ))}
       </div>
@@ -87,14 +96,19 @@ const Card: React.FC<PublicImageAssetPorps> = ({
         {Renditions.map((rendition) => (
           <div key={rendition.Name} className="text-gray-700 text-base">
             <strong>{rendition.Name}:</strong> {rendition.Width}x
-            {rendition.Height} -{' '}
-            <a target='_blank' href={rendition.Url} className="text-blue-500">
+            {rendition.Height} -{" "}
+            <a target="_blank" href={rendition.Url} className="text-blue-500">
               View
             </a>
           </div>
         ))}
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={Title} renditions={Renditions} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={Title}
+        renditions={Renditions}
+      />
     </div>
   );
 };

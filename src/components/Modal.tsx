@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import ResponsiveImage from "./ResponsiveImage";
 
 interface Rendition {
   Height: number;
@@ -21,7 +22,6 @@ const Modal: React.FC<ModalProps> = ({
   renditions,
 }) => {
   if (!isOpen) return null;
-  const sortedRenditions = [...renditions].sort((a, b) => a.Width - b.Width);
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto flex items-center justify-center z-50">
       <div className="relative p-5 border w-full h-full max-w-4xl shadow-lg rounded-md bg-white flex flex-col z-60">
@@ -32,16 +32,11 @@ const Modal: React.FC<ModalProps> = ({
           X
         </button>
         <div className="flex-grow flex items-center justify-center">
-          <picture>
-            {sortedRenditions.map((rendition) => (
-              <source
-                key={rendition.Url}
-                srcSet={rendition.Url}
-                media={`(max-width: ${rendition.Width}px)`}
-              />
-            ))}
-            <img src={sortedRenditions[0].Url} alt={title} className="max-w-full max-h-full object-contain" />
-          </picture>
+          <ResponsiveImage
+            images={renditions}
+            alt={title}
+            className="max-w-full max-h-full object-contain"
+          />
         </div>
         <div className="text-center mt-4 overflow-hidden overflow-ellipsis whitespace-normal break-words">
           <h2 className="text-xl font-bold">{title}</h2>
