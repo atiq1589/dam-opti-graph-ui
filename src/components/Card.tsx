@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from './Modal';
 
 interface Field {
   Id: string;
@@ -42,9 +43,19 @@ const Card: React.FC<PublicImageAssetPorps> = ({
   Fields,
   Renditions,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
-      <div className="relative h-64 w-full overflow-hidden">
+      <div className="relative h-64 w-full overflow-hidden" onClick={openModal}>
         <img
           className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 hover:scale-125"
           src={Url}
@@ -83,6 +94,7 @@ const Card: React.FC<PublicImageAssetPorps> = ({
           </div>
         ))}
       </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={Title} renditions={Renditions} />
     </div>
   );
 };
