@@ -16,7 +16,7 @@ interface Rendition {
   Width: number;
 }
 
-export interface PublicImageAssetPorps {
+export interface PublicImageAssetProps {
   Id: string;
   Title: string;
   AltText: string;
@@ -34,7 +34,7 @@ export interface PublicImageAssetPorps {
   Renditions: Rendition[];
 }
 
-const Card: React.FC<PublicImageAssetPorps> = ({
+const Card: React.FC<PublicImageAssetProps> = ({
   Title,
   Url,
   AltText,
